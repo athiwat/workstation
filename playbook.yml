@@ -1,0 +1,15 @@
+---
+- hosts: all
+  tasks:
+  - name: Install casks
+    homebrew_cask: name={{item}} state=present
+    with_items:
+    - flux
+    - dash
+    - google-chrome
+    - sourcetree
+    - fuze
+    - caffeine
+    - atom
+    - android-studio
+    - vagrant
