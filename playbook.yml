@@ -1,7 +1,18 @@
 ---
 - hosts: all
   tasks:
-  - name: Install casks
+
+  - name: Install applications through Homebrew
+    homebrew: name={{item}} state=present
+    with_items:
+    - wget
+    - git
+    - ack
+    - python
+    - zsh
+    - node
+
+  - name: Install applications through Homebrew casks
     homebrew_cask: name={{item}} state=present
     with_items:
     - flux
@@ -13,3 +24,12 @@
     - atom
     - android-studio
     - vagrant
+    - java
+    - virtualbox
+    - iterm2
+    - dropbox
+    - google-drive
+    - skype
+    - the-unarchiver
+    - macvim
+    - sublime-text
