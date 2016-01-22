@@ -1,6 +1,8 @@
 ---
 - hosts: all
+
   tasks:
+  - include: tasks/zsh.yml
 
   - name: Install applications through Homebrew
     homebrew: name={{item}} state=present
@@ -9,27 +11,34 @@
     - git
     - ack
     - python
-    - zsh
     - node
 
   - name: Install applications through Homebrew casks
     homebrew_cask: name={{item}} state=present
     with_items:
     - flux
-    - dash
     - google-chrome
-    - sourcetree
-    - fuze
     - caffeine
-    - atom
-    - android-studio
-    - vagrant
-    - java
-    - virtualbox
     - iterm2
     - dropbox
     - google-drive
-    - skype
     - the-unarchiver
+    - kindle
+    - 1password
+    # vm
+    - virtualbox
+    - docker
+    - vagrant
+    # programming
     - macvim
     - sublime-text
+    - atom
+    - sourcetree
+    - android-studio
+    - java
+    - dash
+    # communication
+    - telegram
+    - fuze
+    - slack
+    - skype

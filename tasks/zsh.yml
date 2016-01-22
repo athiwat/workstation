@@ -1,0 +1,12 @@
+  - name: Install zsh
+    homebrew: name=zsh state=present
+
+  - name: Check current shell
+    shell: 'echo $SHELL'
+    register: current_shell
+    changed_when: False
+    sudo: no
+
+  - name: Make zsh default
+    shell: chsh -s /bin/zsh
+    when: current_shell.stdout.find('/bin/zsh') == -1
