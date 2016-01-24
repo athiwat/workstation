@@ -4,6 +4,7 @@
   tasks:
   - include: tasks/zsh.yml
   - include: tasks/dotfiles.yml
+  - include: tasks/powerline.yml
 
   - name: Install applications through Homebrew
     homebrew: name={{item}} state=present

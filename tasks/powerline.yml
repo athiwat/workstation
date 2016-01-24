@@ -1,0 +1,9 @@
+
+  - name: Create temp directory
+    file: dest=/tmp/.fonts state=directory
+
+  - name: Clone powerline-fonts
+    git: repo=https://github.com/powerline/fonts dest=/tmp/.fonts/powerline
+
+  - name: install powerline-fonts
+    script: "/tmp/.fonts/powerline/install.sh --home=~/"
