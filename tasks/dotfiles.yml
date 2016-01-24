@@ -1,0 +1,31 @@
+  - name: Show hidden files by default
+    shell: 'defaults write com.apple.finder AppleShowAllFiles -bool true'
+
+  - name: Save screenshots in PNG format
+    shell: 'defaults write com.apple.screencapture type -string "PNG"'
+
+  - name: Display full POSIX path as Finder window title
+    shell: 'defaults write com.apple.finder _FXShowPosixPathInTitle -bool true'
+
+  - name: Stop Photos from opening automatically
+    shell: 'defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true'
+
+  - name: Checkout dotfiles from repo
+    git: repo=git@github.com:athiwat/dotfiles.git dest=~/.dotfiles update=yes
+
+    # From https://github.com/craigmarvelley/macbook-provisioning/blob/master/tasks/dotfiles.yml
+  - name: Check rcm is installed
+    stat: path=/usr/local/bin/rcup
+    register: rcm_installed
+
+  - name: Install rcm for dotfiles management
+    shell: brew tap thoughtbot/formulae && brew install rcm
+    when: rcm_installed.stat.exists == false
+
+  - name: Apply dotfiles
+    shell: rcup -f -d ~/.dotfiles
+
+  # - name: Symlink dotfiles
+  #   file: path=~/.{{item}} src=~/.dotfiles/{{item}} state=link
+  #   with_items:
+  #   - zshrc
